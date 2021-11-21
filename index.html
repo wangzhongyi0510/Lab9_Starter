@@ -7,6 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "67fa0802ba8c45dfa3a67699f96f664c"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+    TrackJS.track('Testing TrackJS!');
+  </script>
   <style>
     button {
       margin: 3px;
@@ -87,7 +96,16 @@
     </section>
   </main>
 
+  
+
+                        
+
   <script>
+    class Error{
+      constructor(message) {
+        this.message = message;
+      }
+    }
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -95,13 +113,125 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      try{
+        if( firstNum == '' || secondNum == '') throw new Error("The input is empty")
+        if( isNaN(firstNum ) || isNaN(secondNum )) throw "The input is not a number"
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      }
+      catch(err){
+        console.error(err.message);
+        console.error(err);
+      }
     });
+    
+
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    // console log
+    errorBtns[0].addEventListener("click", ()=>{
+      console.log("Console Log Demo");
+    });
+
+    //console error
+    errorBtns[1].addEventListener("click", ()=>{
+      console.error("Console Error Demo");
+    });
+
+    //console count
+    errorBtns[2].addEventListener("click", ()=>{
+      console.count("Count Button");
+    });
+
+    //console warn
+    errorBtns[3].addEventListener("click", ()=>{
+      console.warn("Console Warn Button");
+    });
+
+    //console assert
+    errorBtns[4].addEventListener("click", ()=>{
+      const errorMessage = "The number does not equal 3"
+      console.assert( 2 === 3, {number: 2, errorMsg: errorMessage});
+    });
+
+    //console clear
+    errorBtns[5].addEventListener("click", ()=>{
+      console.clear("Button");
+    });
+
+    //console dir
+    errorBtns[6].addEventListener("click", ()=>{
+      console.dir("Button");
+    });
+
+    //console dirxml
+    errorBtns[7].addEventListener("click", ()=>{
+      console.dirxml(errorBtns[7]);
+    });
+
+    //console group start 
+    const message = "console.group";
+    errorBtns[8].addEventListener("click", ()=>{
+      console.group(message);
+    });
+
+    //console group end
+    //const message = "console.group";
+    errorBtns[9].addEventListener("click", ()=>{
+      console.groupEnd(message);
+    });
+
+    //connsole table
+    errorBtns[10].addEventListener("click", ()=>{
+      console.table([
+        {
+          name: "Software Engineering",
+          num: 110,
+        },
+        {
+          name: "Programming Language",
+          num: 130,
+        },
+        {
+          name: "Advanced Software",
+          num: 112,
+        }
+      ])
+    });
+
+    //console start timer
+    errorBtns[11].addEventListener("click", ()=>{
+      console.time("Timer Button");
+    });
+
+    //console end timer
+    errorBtns[12].addEventListener("click", ()=>{
+      console.timeEnd("Timer Button");
+    });
+
+    //console trace
+    errorBtns[13].addEventListener("click", ()=>{
+      const handleBtnClick = () => { deep(); }; 
+      const deep = () => { deeper(); };
+      const deeper = () => { deepest(); };
+      const deepest = () => { console.trace(); };
+      handleBtnClick();
+    });
+
+    errorBtns[14].addEventListener("click", () =>{
+       fetch(abc.json);
+       
+    });
+    window.onerror = () => { console.error("the file does not exist");};
+
+    
+
+
+    //step 3
+
   </script>
 </body>
 
